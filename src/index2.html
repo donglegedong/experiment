@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charSet="UTF-8" />
+        <meta name="keywords" content="" />
+        <meta name="description" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta httpEquiv="X-UA-Compatible" content="IE=Edge" />
+        <title>客户端渲染</title>
+        <style>
+            body{
+                font-family: "Microsoft YaHei",Verdana,Arial,Helvetica,sans-serif;
+                background-color: #f9f4f4;;
+            }
+            a, a:active, a:hover, a:visited {
+                text-decoration: none;
+            }
+            .main-body{
+                padding: 5px 10px 0;
+            }
+            .main-body:after{
+                content: '';
+                display: block;
+                clear: both;
+            }
+            .main-wrap{
+                position: relative;
+                float: left;
+                width: 48.1%;
+                overflow: hidden;
+                margin-right: 5px;
+                margin-bottom: 5px;
+            }
+            .main-wrap:before{
+                content: "\20";
+                padding-top: 148.57%;
+                display: block;
+            }
+            .link{
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: #fff;
+                overflow: hidden;
+                display:block;
+            }
+            .pd-pic{
+                background-color: #fff;
+                background-image: url(http://m.360buyimg.com/cms/jfs/t2758/215/1594051335/2771/cbb0d1fc/5743bb53N5b2c63f7.png);
+                background-position: 50% 50%;
+                margin: 0 auto;
+                background-repeat: no-repeat;
+                width: 100%;
+                position: relative;
+                padding-top: 100%;
+                overflow: hidden;
+            }
+            .pd-pic img{
+                position: absolute;
+                display: block;
+                top: 0;
+                left: 0;
+                vertical-align: middle;
+                border: 0;
+                width: 100%;
+            }
+            .pd-info{
+                height: 79px;
+            }
+            .pd-title{
+                display: -webkit-box;
+                height: 35px;
+                line-height: 17px;
+                margin-top: 6px;
+                padding: 0 10px;
+                font-size: 13px;
+                color: #000;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                word-break: break-all;
+            }
+            .pd-wrap{
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 24px;
+                line-height: 24px;
+            }
+            .pd-price-wrap{
+                position: absolute;
+                width: 70%;
+                top: -3px;
+                left: 0;
+                height: 24px;
+                line-height: 24px;
+                padding-left: 10px;
+                overflow: hidden;
+            }
+            .pd-now-price{
+                position: relative;
+                font-size: 15px;
+                max-width: 100%;
+                height: 29px;
+                line-height: 29px;
+                color: #000;
+                margin-right: 5px;
+                float: left;
+                text-overflow: ellipsis;
+                -webkit-line-clamp: 1;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+            }
+            .pd-old-price{
+                position: relative;
+                color: #999;
+                margin-right: 5px;
+                float: left;
+                height: 29px;
+                font-size: 12px;
+            }
+            .replace-price{
+                display: block;
+                max-width: 70px;
+                height: 12px;
+                font-size: 13px;
+                color: #fff;
+                background-color: #f02b2b;
+                padding: 2px;
+                margin-top: 6px;
+                line-height: 12px;
+                text-align: center;
+                overflow: hidden;
+            }
+            .pd-buy-car{
+                position: absolute;
+                width: 60px;
+                height: 60px;
+                bottom: -6px;
+                right: 0;
+                z-index: 10;
+            }
+            .icon-wrap{
+                display: block;
+                position: absolute;
+                width: 25px;
+                height: 25px;
+                top: 50%;
+                left: 50%;
+                margin-top: -6px;
+                background-color: #f02b2b;
+                border-radius: 2px;
+            }
+            .icon-wrap:after{
+                content: "";
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                margin-top: -8px;
+                margin-left: -8px;
+                background-image: url(http://m.360buyimg.com/cms/jfs/t3403/121/2166495905/12449/63a4fd9d/5847b72fN2b88379f.png);
+                background-size: 90px 84px;
+                background-position: -70px -50px;
+                width: 15px;
+                height: 15px;
+            }
+        </style>
+    </head>
+    <body>
+    <div class="main-body">        
+        <div class="main-wrap">
+            <a href="#" class="link">
+                <div class="pd-pic">
+                    <img data-src="http://m.360buyimg.com/babel/s350x350_jfs/t3313/208/895237242/160523/37d6be92/5817efeaNe2525b9c.jpg!q70.jpg" src="http://m.360buyimg.com/cms/jfs/t2218/111/2490744834/43/9acceab1/56d55ce6N5a567661.gif" alt="示例图片">
+                </div>
+                <div class="pd-info">
+                    <div class="pd-title">乐视超级电视 超4 X40 40英寸智能高清液晶网络电视（标配底座）</div>
+                    <div class="pd-wrap">
+                        <div class="pd-price-wrap">
+                            <div class="pd-now-price">￥2189</div>
+                            <div class="pd-old-price">
+                                <span class="replace-price">加价购</span>
+                            </div>
+                        </div>
+                        <div class="pd-buy-car">
+                            <span class="icon-wrap"></span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="main-wrap">
+            <a href="#" class="link">
+                <div class="pd-pic">
+                    <img data-src="http://m.360buyimg.com/babel/s350x350_jfs/t2842/140/1650044018/239109/7f7dbd41/57464b25N52f59b35.jpg!q70.jpg" src="http://m.360buyimg.com/cms/jfs/t2218/111/2490744834/43/9acceab1/56d55ce6N5a567661.gif" alt="示例图片">
+                </div>
+                <div class="pd-info">
+                    <div class="pd-title">乐视超级电视 超4 X40 40英寸智能高清液晶网络电视（标配底座）</div>
+                    <div class="pd-wrap">
+                        <div class="pd-price-wrap">
+                            <div class="pd-now-price">￥2189</div>
+                            <div class="pd-old-price">
+                                <span class="replace-price">加价购</span>
+                            </div>
+                        </div>
+                        <div class="pd-buy-car">
+                            <span class="icon-wrap"></span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="main-wrap">
+            <a href="#" class="link">
+                <div class="pd-pic">
+                    <img data-src="http://m.360buyimg.com/babel/s350x350_jfs/t3799/111/920759872/113036/93035e3a/5817efbfN29f8b450.jpg!q70.jpg" src="http://m.360buyimg.com/cms/jfs/t2218/111/2490744834/43/9acceab1/56d55ce6N5a567661.gif" alt="示例图片">
+                </div>
+                <div class="pd-info">
+                    <div class="pd-title">乐视超级电视 超4 X40 40英寸智能高清液晶网络电视（标配底座）</div>
+                    <div class="pd-wrap">
+                        <div class="pd-price-wrap">
+                            <div class="pd-now-price">￥2189</div>
+                            <div class="pd-old-price">
+                                <span class="replace-price">加价购</span>
+                            </div>
+                        </div>
+                        <div class="pd-buy-car">
+                            <span class="icon-wrap"></span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="main-wrap">
+            <a href="#" class="link">
+                <div class="pd-pic">
+                    <img data-src="http://m.360buyimg.com/babel/s350x350_jfs/t2893/44/1099190110/227546/9a8317a2/57353191N23661a3c.jpg!q70.jpg" src="http://m.360buyimg.com/cms/jfs/t2218/111/2490744834/43/9acceab1/56d55ce6N5a567661.gif" alt="示例图片">
+                </div>
+                <div class="pd-info">
+                    <div class="pd-title">乐视超级电视 超4 X40 40英寸智能高清液晶网络电视（标配底座）</div>
+                    <div class="pd-wrap">
+                        <div class="pd-price-wrap">
+                            <div class="pd-now-price">￥2189</div>
+                            <div class="pd-old-price">
+                                <span class="replace-price">加价购</span>
+                            </div>
+                        </div>
+                        <div class="pd-buy-car">
+                            <span class="icon-wrap"></span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="main-wrap">
+            <a href="#" class="link">
+                <div class="pd-pic">
+                    <img data-src="http://m.360buyimg.com/babel/s350x350_jfs/t3838/80/98278531/287667/75699fc2/580738c8N3cc15e59.jpg!q70.jpg" src="http://m.360buyimg.com/cms/jfs/t2218/111/2490744834/43/9acceab1/56d55ce6N5a567661.gif" alt="示例图片">
+                </div>
+                <div class="pd-info">
+                    <div class="pd-title">乐视超级电视 超4 X40 40英寸智能高清液晶网络电视（标配底座）</div>
+                    <div class="pd-wrap">
+                        <div class="pd-price-wrap">
+                            <div class="pd-now-price">￥2189</div>
+                            <div class="pd-old-price">
+                                <span class="replace-price">加价购</span>
+                            </div>
+                        </div>
+                        <div class="pd-buy-car">
+                            <span class="icon-wrap"></span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="main-wrap">
+            <a href="#" class="link">
+                <div class="pd-pic">
+                    <img data-src="http://m.360buyimg.com/babel/s350x350_jfs/t3838/80/98278531/287667/75699fc2/580738c8N3cc15e59.jpg!q70.jpg" src="http://m.360buyimg.com/cms/jfs/t2218/111/2490744834/43/9acceab1/56d55ce6N5a567661.gif" alt="示例图片">
+                </div>
+                <div class="pd-info">
+                    <div class="pd-title">乐视超级电视 超4 X40 40英寸智能高清液晶网络电视（标配底座）</div>
+                    <div class="pd-wrap">
+                        <div class="pd-price-wrap">
+                            <div class="pd-now-price">￥2189</div>
+                            <div class="pd-old-price">
+                                <span class="replace-price">加价购</span>
+                            </div>
+                        </div>
+                        <div class="pd-buy-car">
+                            <span class="icon-wrap"></span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="main-wrap">
+            <a href="#" class="link">
+                <div class="pd-pic">
+                    <img data-src="http://m.360buyimg.com/babel/s350x350_jfs/t3601/149/379379188/194676/202ccdd5/5808367fNbad4b677.jpg!q70.jpg" src="http://m.360buyimg.com/cms/jfs/t2218/111/2490744834/43/9acceab1/56d55ce6N5a567661.gif" alt="示例图片">
+                </div>
+                <div class="pd-info">
+                    <div class="pd-title">乐视超级电视 超4 X40 40英寸智能高清液晶网络电视（标配底座）</div>
+                    <div class="pd-wrap">
+                        <div class="pd-price-wrap">
+                            <div class="pd-now-price">￥2189</div>
+                            <div class="pd-old-price">
+                                <span class="replace-price">加价购</span>
+                            </div>
+                        </div>
+                        <div class="pd-buy-car">
+                            <span class="icon-wrap"></span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <script>
+        function imgDelayLoad() {
+            var imgs = document.getElementsByTagName('img')
+              , src = ""
+              , windowHeightScrollTop = document.body.offsetHeight + document.body.scrollTop
+              ;
+            var divWraps = document.getElementsByClassName('main-wrap');
+            imgs = Array.prototype.slice.call(imgs);
+            divWraps = Array.prototype.slice.call(divWraps);
+            // console.log(imgs);
+            imgs.forEach(function(el) {
+              src = el.getAttribute("data-src");
+              // console.log('windowHeightScrollTop:',windowHeightScrollTop);
+              // console.log('offsetTop:', el.offsetTop);
+              if ( windowHeightScrollTop > (el.offsetTop) ) {
+                if (el.src.indexOf("gif") > 0) {
+                  el.src = src;
+                } 
+              }
+            });
+            divWraps.forEach(function(el){
+                console.log(el.offsetTop);
+            })
+          }
+          window.onload = function(){
+            imgDelayLoad();
+            var p=0,t=0;
+            window.onscroll = function(){
+                p = document.body.scrollTop;
+                if(p>t){ // 向下滚
+                    imgDelayLoad();
+                }
+                t = p;
+              }
+          }
+    </script>
+    </body>
+</html>
