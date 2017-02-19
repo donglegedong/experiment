@@ -63,7 +63,7 @@
 /******/ 	}
 
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "1e37422cc4061dac561c"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "9667a141223ee9c848e5"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 
@@ -605,7 +605,9 @@
 	    var React = __webpack_require__(82);
 	    var ReactDOM = __webpack_require__(83);
 
-	    var App = __webpack_require__(84);
+	    var showConfig = __webpack_require__(84);
+
+	    var App = __webpack_require__(88)("./" + showConfig.showContainer + '/index');
 	    ReactDOM.render(React.createElement(App, null), document.getElementById('content'));
 
 	    /* REACT HOT LOADER */
@@ -614,7 +616,7 @@
 	  if (true) {
 	    (function () {
 	      var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false;if (module.exports && module.makeHot) {
-	        var makeExportsHot = __webpack_require__(92);if (makeExportsHot(module, __webpack_require__(82))) {
+	        var makeExportsHot = __webpack_require__(85);if (makeExportsHot(module, __webpack_require__(82))) {
 	          foundReactClasses = true;
 	        }var shouldAcceptModule = true && foundReactClasses;if (shouldAcceptModule) {
 	          module.hot.accept(function (err) {
@@ -9473,6 +9475,209 @@
 	/* WEBPACK VAR INJECTION */(function(module) {"use strict";
 
 	/* REACT HOT LOADER */if (true) {
+	  (function () {
+	    var ReactHotAPI = __webpack_require__(3),
+	        RootInstanceProvider = __webpack_require__(11),
+	        ReactMount = __webpack_require__(13),
+	        React = __webpack_require__(82);module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () {
+	      return RootInstanceProvider.getRootInstances(ReactMount);
+	    }, React);
+	  })();
+	}try {
+	  (function () {
+
+	    /**
+	     * showPage: 'jdPage' || 'cnblogPage' || 'qqPage'
+	     * showCss: 'jd' || 'cnblog' || 'qq'
+	     * showContainer: 'jd' || 'cnblog' || 'qq'
+	     */
+	    var config = {
+	      "showPage": "cnblogPage",
+	      "showCss": "cnblog",
+	      "showContainer": "cnblog"
+	    };
+	    module.exports = config;
+
+	    /* REACT HOT LOADER */
+	  }).call(undefined);
+	} finally {
+	  if (true) {
+	    (function () {
+	      var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false;if (module.exports && module.makeHot) {
+	        var makeExportsHot = __webpack_require__(85);if (makeExportsHot(module, __webpack_require__(82))) {
+	          foundReactClasses = true;
+	        }var shouldAcceptModule = true && foundReactClasses;if (shouldAcceptModule) {
+	          module.hot.accept(function (err) {
+	            if (err) {
+	              console.error("Cannot not apply hot update to " + "showConfig.js" + ": " + err.message);
+	            }
+	          });
+	        }
+	      }module.hot.dispose(function (data) {
+	        data.makeHot = module.makeHot;data.foundReactClasses = foundReactClasses;
+	      });
+	    })();
+	  }
+	}
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)(module)))
+
+/***/ },
+/* 85 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var isReactClassish = __webpack_require__(86),
+	    isReactElementish = __webpack_require__(87);
+
+	function makeExportsHot(m, React) {
+	  if (isReactElementish(m.exports, React)) {
+	    // React elements are never valid React classes
+	    return false;
+	  }
+
+	  var freshExports = m.exports,
+	      exportsReactClass = isReactClassish(m.exports, React),
+	      foundReactClasses = false;
+
+	  if (exportsReactClass) {
+	    m.exports = m.makeHot(m.exports, '__MODULE_EXPORTS');
+	    foundReactClasses = true;
+	  }
+
+	  for (var key in m.exports) {
+	    if (!Object.prototype.hasOwnProperty.call(freshExports, key)) {
+	      continue;
+	    }
+
+	    if (exportsReactClass && key === 'type') {
+	      // React 0.12 also puts classes under `type` property for compat.
+	      // Skip to avoid updating twice.
+	      continue;
+	    }
+
+	    var value;
+	    try {
+	      value = freshExports[key];
+	    } catch (err) {
+	      continue;
+	    }
+
+	    if (!isReactClassish(value, React)) {
+	      continue;
+	    }
+
+	    if (Object.getOwnPropertyDescriptor(m.exports, key).writable) {
+	      m.exports[key] = m.makeHot(value, '__MODULE_EXPORTS_' + key);
+	      foundReactClasses = true;
+	    } else {
+	      console.warn("Can't make class " + key + " hot reloadable due to being read-only. To fix this you can try two solutions. First, you can exclude files or directories (for example, /node_modules/) using 'exclude' option in loader configuration. Second, if you are using Babel, you can enable loose mode for `es6.modules` using the 'loose' option. See: http://babeljs.io/docs/advanced/loose/ and http://babeljs.io/docs/usage/options/");
+	    }
+	  }
+
+	  return foundReactClasses;
+	}
+
+	module.exports = makeExportsHot;
+
+
+/***/ },
+/* 86 */
+/***/ function(module, exports) {
+
+	function hasRender(Class) {
+	  var prototype = Class.prototype;
+	  if (!prototype) {
+	    return false;
+	  }
+
+	  return typeof prototype.render === 'function';
+	}
+
+	function descendsFromReactComponent(Class, React) {
+	  if (!React.Component) {
+	    return false;
+	  }
+
+	  var Base = Object.getPrototypeOf(Class);
+	  while (Base) {
+	    if (Base === React.Component) {
+	      return true;
+	    }
+
+	    Base = Object.getPrototypeOf(Base);
+	  }
+
+	  return false;
+	}
+
+	function isReactClassish(Class, React) {
+	  if (typeof Class !== 'function') {
+	    return false;
+	  }
+
+	  // React 0.13
+	  if (hasRender(Class) || descendsFromReactComponent(Class, React)) {
+	    return true;
+	  }
+
+	  // React 0.12 and earlier
+	  if (Class.type && hasRender(Class.type)) {
+	    return true;
+	  }
+
+	  return false;
+	}
+
+	module.exports = isReactClassish;
+
+/***/ },
+/* 87 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var isReactClassish = __webpack_require__(86);
+
+	function isReactElementish(obj, React) {
+	  if (!obj) {
+	    return false;
+	  }
+
+	  return Object.prototype.toString.call(obj.props) === '[object Object]' &&
+	         isReactClassish(obj.type, React);
+	}
+
+	module.exports = isReactElementish;
+
+/***/ },
+/* 88 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var map = {
+		"./cnblog/index": 89,
+		"./jd/index": 97,
+		"./qq/index": 99
+	};
+	function webpackContext(req) {
+		return __webpack_require__(webpackContextResolve(req));
+	};
+	function webpackContextResolve(req) {
+		return map[req] || (function() { throw new Error("Cannot find module '" + req + "'.") }());
+	};
+	webpackContext.keys = function webpackContextKeys() {
+		return Object.keys(map);
+	};
+	webpackContext.resolve = webpackContextResolve;
+	module.exports = webpackContext;
+	webpackContext.id = 88;
+
+
+/***/ },
+/* 89 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {"use strict";
+
+	/* REACT HOT LOADER */if (true) {
 	    (function () {
 	        var ReactHotAPI = __webpack_require__(3),
 	            RootInstanceProvider = __webpack_require__(11),
@@ -9485,13 +9690,13 @@
 	    (function () {
 
 	        var React = __webpack_require__(82);
-	        var ChildBox = __webpack_require__(85);
-	        var ContentData = __webpack_require__(86);
+	        var CnblogShow = __webpack_require__(90);
+	        var ContentData = __webpack_require__(91);
 
-	        var productBox = React.createClass({ displayName: "productBox",
+	        var cnblogPage = React.createClass({ displayName: "cnblogPage",
 	            statics: {
 	                fetchData: function fetchData(callback) {
-	                    var url = 'http://localhost:3000/api/list';
+	                    var url = 'http://localhost:3000/api/cnblog/list';
 	                    ContentData.fetch(url).then(function (data) {
 	                        callback(data);
 	                    });
@@ -9500,46 +9705,30 @@
 	            // 组件相关的状态对象
 	            getInitialState: function getInitialState() {
 	                return {
-	                    messageList: []
+	                    showList: []
 	                };
 	            },
 	            getData: function getData() {
 	                var self = this;
 	                this.constructor.fetchData(function (data) {
-	                    var len = data.length;
-	                    var i = 0,
-	                        messageListArr = [];
-	                    for (; i < len; i++) {
-	                        messageListArr[i] = data[i].Message;
-	                    }
-	                    self.setState({ messageList: messageListArr });
-	                    // self.setProps({
-	                    //     messageList: messageListArr
-	                    // });
+	                    var waresPagedList = data.waresPagedList;
+	                    // console.log(waresPagedList);
+	                    self.setState({ showList: waresPagedList });
 	                });
 	            },
-	            /*shouldComponentUpdate: function(nextProps, nextState) {
-	                console.log('preProps:',this.props);
-	                console.log('nextProps:',nextProps);
-	                console.log('preState:',this.State);
-	                console.log('nextState:',nextState);
-	                return false;
-	            },*/
 	            componentDidMount: function componentDidMount() {
 	                this.getData();
 	            },
 	            render: function render() {
-	                var self = this;
-	                var messages = this.props.messageList || this.state.messageList;
-	                var childList = this.props.childList;
+	                var showList = this.props.showList || this.state.showList;
 	                var arr = [];
-	                messages.forEach(function (em, i) {
-	                    arr.push(React.createElement("li", { key: i }, " ", em, " "));
+	                showList.forEach(function (em, i) {
+	                    arr.push(React.createElement(CnblogShow, { key: i, itemInfo: em }));
 	                });
-	                return React.createElement("div", null, React.createElement("section", { className: "pageContentInner" }, React.createElement("div", { className: "head-section" }, React.createElement("h1", null, "MessageList: ")), React.createElement("ul", null, arr)), React.createElement(ChildBox, { childList: childList }));
+	                return React.createElement("div", { className: "post-list" }, arr);
 	            }
 	        });
-	        module.exports = productBox;
+	        module.exports = cnblogPage;
 
 	        /* REACT HOT LOADER */
 	    }).call(undefined);
@@ -9547,12 +9736,12 @@
 	    if (true) {
 	        (function () {
 	            var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false;if (module.exports && module.makeHot) {
-	                var makeExportsHot = __webpack_require__(92);if (makeExportsHot(module, __webpack_require__(82))) {
+	                var makeExportsHot = __webpack_require__(85);if (makeExportsHot(module, __webpack_require__(82))) {
 	                    foundReactClasses = true;
 	                }var shouldAcceptModule = true && foundReactClasses;if (shouldAcceptModule) {
 	                    module.hot.accept(function (err) {
 	                        if (err) {
-	                            console.error("Cannot not apply hot update to " + "productBox.js" + ": " + err.message);
+	                            console.error("Cannot not apply hot update to " + "index.js" + ": " + err.message);
 	                        }
 	                    });
 	                }
@@ -9565,7 +9754,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)(module)))
 
 /***/ },
-/* 85 */
+/* 90 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {"use strict";
@@ -9584,60 +9773,14 @@
 
 	        var React = __webpack_require__(82);
 
-	        var ContentData = __webpack_require__(86);
-
-	        var childBox = React.createClass({ displayName: "childBox",
-	            statics: {
-	                fetchData: function fetchData(callback) {
-	                    var url = 'http://localhost:3000/api/childList';
-	                    ContentData.fetch(url).then(function (data) {
-	                        callback(data);
-	                    });
-	                }
-	            },
-	            // 组件相关的状态对象
-	            getInitialState: function getInitialState() {
-	                return {
-	                    childList: []
-	                };
-	            },
-	            getData: function getData() {
-	                var self = this;
-	                this.constructor.fetchData(function (data) {
-	                    var len = data.length;
-	                    var i = 0,
-	                        childListArr = [];
-	                    for (; i < len; i++) {
-	                        childListArr[i] = data[i].Message;
-	                    }
-	                    self.setState({ childList: childListArr });
-	                    // self.setProps({
-	                    //     messageList: messageListArr
-	                    // });
-	                });
-	            },
-	            /*shouldComponentUpdate: function(nextProps, nextState) {
-	                console.log('preProps:',this.props);
-	                console.log('nextProps:',nextProps);
-	                console.log('preState:',this.State);
-	                console.log('nextState:',nextState);
-	                return false;
-	            },*/
-	            componentDidMount: function componentDidMount() {
-	                this.getData();
-	            },
+	        var cnblogShow = React.createClass({ displayName: "cnblogShow",
 	            render: function render() {
-	                var self = this;
-	                var messages = this.props.childList || this.state.childList;
-	                var arr = [];
-	                console.log('childList:', messages);
-	                messages.forEach(function (em, i) {
-	                    arr.push(React.createElement("li", { key: i }, " ", em, " "));
-	                });
-	                return React.createElement("div", { className: "pageContentInner" }, React.createElement("div", { className: "head-section" }, React.createElement("h1", null, "ChildList: ")), React.createElement("ul", null, arr));
+	                var itemInfo = this.props.itemInfo;
+	                // console.log(itemInfo);
+	                return React.createElement("div", { className: "post-item" }, React.createElement("div", { className: "digg" }, React.createElement("div", { className: "diggit" }, React.createElement("span", { className: "diggnum" }, itemInfo.diggNum))), React.createElement("div", { className: "post-item-body" }, React.createElement("h3", null, React.createElement("a", { href: "javascript:void(0)", className: "titlelnk" }, itemInfo.title)), React.createElement("div", { className: "post-item-summary" }, React.createElement("a", { href: "javascript:void(0)" }, React.createElement("img", { src: itemInfo.img })), React.createElement("span", null, itemInfo.content)), React.createElement("div", { className: "post-item-foot" }, React.createElement("a", { href: "javascript:void(0)", className: "lightblue" }, itemInfo.userName), "发布于", React.createElement("span", null, itemInfo.time), React.createElement("span", { className: "article-comment gray" }, "评论(", itemInfo.commentNum, ")"), React.createElement("span", { className: "article-view gray" }, "阅读(", itemInfo.viewNum, ")"))));
 	            }
 	        });
-	        module.exports = childBox;
+	        module.exports = cnblogShow;
 
 	        /* REACT HOT LOADER */
 	    }).call(undefined);
@@ -9645,12 +9788,12 @@
 	    if (true) {
 	        (function () {
 	            var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false;if (module.exports && module.makeHot) {
-	                var makeExportsHot = __webpack_require__(92);if (makeExportsHot(module, __webpack_require__(82))) {
+	                var makeExportsHot = __webpack_require__(85);if (makeExportsHot(module, __webpack_require__(82))) {
 	                    foundReactClasses = true;
 	                }var shouldAcceptModule = true && foundReactClasses;if (shouldAcceptModule) {
 	                    module.hot.accept(function (err) {
 	                        if (err) {
-	                            console.error("Cannot not apply hot update to " + "childBox.js" + ": " + err.message);
+	                            console.error("Cannot not apply hot update to " + "cnblogShow.js" + ": " + err.message);
 	                        }
 	                    });
 	                }
@@ -9663,7 +9806,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)(module)))
 
 /***/ },
-/* 86 */
+/* 91 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {"use strict";
@@ -9688,9 +9831,9 @@
 	}try {
 	    (function () {
 
-	        var EventEmitter = __webpack_require__(87).EventEmitter;
-	        __webpack_require__(88).polyfill();
-	        __webpack_require__(90);
+	        var EventEmitter = __webpack_require__(92).EventEmitter;
+	        __webpack_require__(93).polyfill();
+	        __webpack_require__(95);
 
 	        var ContentData = function (_EventEmitter) {
 	            _inherits(ContentData, _EventEmitter);
@@ -9745,7 +9888,7 @@
 	    if (true) {
 	        (function () {
 	            var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false;if (module.exports && module.makeHot) {
-	                var makeExportsHot = __webpack_require__(92);if (makeExportsHot(module, __webpack_require__(82))) {
+	                var makeExportsHot = __webpack_require__(85);if (makeExportsHot(module, __webpack_require__(82))) {
 	                    foundReactClasses = true;
 	                }var shouldAcceptModule = true && foundReactClasses;if (shouldAcceptModule) {
 	                    module.hot.accept(function (err) {
@@ -9763,7 +9906,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)(module)))
 
 /***/ },
-/* 87 */
+/* 92 */
 /***/ function(module, exports) {
 
 	// Copyright Joyent, Inc. and other Node contributors.
@@ -10071,7 +10214,7 @@
 
 
 /***/ },
-/* 88 */
+/* 93 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var require;/* WEBPACK VAR INJECTION */(function(process, global) {/*!
@@ -10210,7 +10353,7 @@
 	function attemptVertx() {
 	  try {
 	    var r = require;
-	    var vertx = __webpack_require__(89);
+	    var vertx = __webpack_require__(94);
 	    vertxNext = vertx.runOnLoop || vertx.runOnContext;
 	    return useVertxTimer();
 	  } catch (e) {
@@ -11234,25 +11377,25 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(14), (function() { return this; }())))
 
 /***/ },
-/* 89 */
+/* 94 */
 /***/ function(module, exports) {
 
 	/* (ignored) */
 
 /***/ },
-/* 90 */
+/* 95 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// the whatwg-fetch polyfill installs the fetch() function
 	// on the global object (window or self)
 	//
 	// Return that as the export for use in Webpack, Browserify etc.
-	__webpack_require__(91);
+	__webpack_require__(96);
 	module.exports = self.fetch.bind(self);
 
 
 /***/ },
-/* 91 */
+/* 96 */
 /***/ function(module, exports) {
 
 	(function(self) {
@@ -11716,131 +11859,272 @@
 
 
 /***/ },
-/* 92 */
+/* 97 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	/* WEBPACK VAR INJECTION */(function(module) {"use strict";
 
-	var isReactClassish = __webpack_require__(93),
-	    isReactElementish = __webpack_require__(94);
+	/* REACT HOT LOADER */if (true) {
+	    (function () {
+	        var ReactHotAPI = __webpack_require__(3),
+	            RootInstanceProvider = __webpack_require__(11),
+	            ReactMount = __webpack_require__(13),
+	            React = __webpack_require__(82);module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () {
+	            return RootInstanceProvider.getRootInstances(ReactMount);
+	        }, React);
+	    })();
+	}try {
+	    (function () {
 
-	function makeExportsHot(m, React) {
-	  if (isReactElementish(m.exports, React)) {
-	    // React elements are never valid React classes
-	    return false;
-	  }
+	        var React = __webpack_require__(82);
+	        var JdShow = __webpack_require__(98);
+	        var ContentData = __webpack_require__(91);
 
-	  var freshExports = m.exports,
-	      exportsReactClass = isReactClassish(m.exports, React),
-	      foundReactClasses = false;
+	        var jdPage = React.createClass({ displayName: "jdPage",
+	            statics: {
+	                fetchData: function fetchData(callback) {
+	                    var url = 'http://localhost:3000/api/jd/list';
+	                    ContentData.fetch(url).then(function (data) {
+	                        callback(data);
+	                    });
+	                }
+	            },
+	            // 组件相关的状态对象
+	            getInitialState: function getInitialState() {
+	                return {
+	                    showList: []
+	                };
+	            },
+	            getData: function getData() {
+	                var self = this;
+	                this.constructor.fetchData(function (data) {
+	                    var waresPagedList = data.waresPagedList;
+	                    // console.log(waresPagedList);
+	                    self.setState({ showList: waresPagedList });
+	                });
+	            },
+	            componentDidMount: function componentDidMount() {
+	                this.getData();
+	            },
+	            render: function render() {
+	                var showList = this.props.showList || this.state.showList;
+	                var arr = [];
+	                showList.forEach(function (em, i) {
+	                    arr.push(React.createElement(JdShow, { key: i, itemInfo: em }));
+	                });
+	                return React.createElement("div", { className: "main-body" }, arr);
+	            }
+	        });
+	        module.exports = jdPage;
 
-	  if (exportsReactClass) {
-	    m.exports = m.makeHot(m.exports, '__MODULE_EXPORTS');
-	    foundReactClasses = true;
-	  }
-
-	  for (var key in m.exports) {
-	    if (!Object.prototype.hasOwnProperty.call(freshExports, key)) {
-	      continue;
+	        /* REACT HOT LOADER */
+	    }).call(undefined);
+	} finally {
+	    if (true) {
+	        (function () {
+	            var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false;if (module.exports && module.makeHot) {
+	                var makeExportsHot = __webpack_require__(85);if (makeExportsHot(module, __webpack_require__(82))) {
+	                    foundReactClasses = true;
+	                }var shouldAcceptModule = true && foundReactClasses;if (shouldAcceptModule) {
+	                    module.hot.accept(function (err) {
+	                        if (err) {
+	                            console.error("Cannot not apply hot update to " + "index.js" + ": " + err.message);
+	                        }
+	                    });
+	                }
+	            }module.hot.dispose(function (data) {
+	                data.makeHot = module.makeHot;data.foundReactClasses = foundReactClasses;
+	            });
+	        })();
 	    }
-
-	    if (exportsReactClass && key === 'type') {
-	      // React 0.12 also puts classes under `type` property for compat.
-	      // Skip to avoid updating twice.
-	      continue;
-	    }
-
-	    var value;
-	    try {
-	      value = freshExports[key];
-	    } catch (err) {
-	      continue;
-	    }
-
-	    if (!isReactClassish(value, React)) {
-	      continue;
-	    }
-
-	    if (Object.getOwnPropertyDescriptor(m.exports, key).writable) {
-	      m.exports[key] = m.makeHot(value, '__MODULE_EXPORTS_' + key);
-	      foundReactClasses = true;
-	    } else {
-	      console.warn("Can't make class " + key + " hot reloadable due to being read-only. To fix this you can try two solutions. First, you can exclude files or directories (for example, /node_modules/) using 'exclude' option in loader configuration. Second, if you are using Babel, you can enable loose mode for `es6.modules` using the 'loose' option. See: http://babeljs.io/docs/advanced/loose/ and http://babeljs.io/docs/usage/options/");
-	    }
-	  }
-
-	  return foundReactClasses;
 	}
-
-	module.exports = makeExportsHot;
-
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)(module)))
 
 /***/ },
-/* 93 */
-/***/ function(module, exports) {
-
-	function hasRender(Class) {
-	  var prototype = Class.prototype;
-	  if (!prototype) {
-	    return false;
-	  }
-
-	  return typeof prototype.render === 'function';
-	}
-
-	function descendsFromReactComponent(Class, React) {
-	  if (!React.Component) {
-	    return false;
-	  }
-
-	  var Base = Object.getPrototypeOf(Class);
-	  while (Base) {
-	    if (Base === React.Component) {
-	      return true;
-	    }
-
-	    Base = Object.getPrototypeOf(Base);
-	  }
-
-	  return false;
-	}
-
-	function isReactClassish(Class, React) {
-	  if (typeof Class !== 'function') {
-	    return false;
-	  }
-
-	  // React 0.13
-	  if (hasRender(Class) || descendsFromReactComponent(Class, React)) {
-	    return true;
-	  }
-
-	  // React 0.12 and earlier
-	  if (Class.type && hasRender(Class.type)) {
-	    return true;
-	  }
-
-	  return false;
-	}
-
-	module.exports = isReactClassish;
-
-/***/ },
-/* 94 */
+/* 98 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isReactClassish = __webpack_require__(93);
+	/* WEBPACK VAR INJECTION */(function(module) {"use strict";
 
-	function isReactElementish(obj, React) {
-	  if (!obj) {
-	    return false;
-	  }
+	/* REACT HOT LOADER */if (true) {
+	    (function () {
+	        var ReactHotAPI = __webpack_require__(3),
+	            RootInstanceProvider = __webpack_require__(11),
+	            ReactMount = __webpack_require__(13),
+	            React = __webpack_require__(82);module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () {
+	            return RootInstanceProvider.getRootInstances(ReactMount);
+	        }, React);
+	    })();
+	}try {
+	    (function () {
 
-	  return Object.prototype.toString.call(obj.props) === '[object Object]' &&
-	         isReactClassish(obj.type, React);
+	        var React = __webpack_require__(82);
+
+	        var jdShow = React.createClass({ displayName: "jdShow",
+	            render: function render() {
+	                var itemInfo = this.props.itemInfo;
+	                // console.log(itemInfo);
+	                return React.createElement("div", { className: "main-wrap" }, React.createElement("a", { href: "#", className: "link" }, React.createElement("div", { className: "pd-pic" }, React.createElement("img", { "data-src": itemInfo.image, src: "http://m.360buyimg.com/cms/jfs/t2218/111/2490744834/43/9acceab1/56d55ce6N5a567661.gif", alt: "示例图片" })), React.createElement("div", { className: "pd-info" }, React.createElement("div", { className: "pd-title" }, itemInfo.name), React.createElement("div", { className: "pd-wrap" }, React.createElement("div", { className: "pd-price-wrap" }, React.createElement("div", { className: "pd-now-price" }, itemInfo.pPrice), React.createElement("div", { className: "pd-old-price" }, React.createElement("span", { className: "replace-price" }, itemInfo.promotionTag))), React.createElement("div", { className: "pd-buy-car" }, React.createElement("span", { className: "icon-wrap" }))))));
+	            }
+	        });
+	        module.exports = jdShow;
+
+	        /* REACT HOT LOADER */
+	    }).call(undefined);
+	} finally {
+	    if (true) {
+	        (function () {
+	            var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false;if (module.exports && module.makeHot) {
+	                var makeExportsHot = __webpack_require__(85);if (makeExportsHot(module, __webpack_require__(82))) {
+	                    foundReactClasses = true;
+	                }var shouldAcceptModule = true && foundReactClasses;if (shouldAcceptModule) {
+	                    module.hot.accept(function (err) {
+	                        if (err) {
+	                            console.error("Cannot not apply hot update to " + "jdShow.js" + ": " + err.message);
+	                        }
+	                    });
+	                }
+	            }module.hot.dispose(function (data) {
+	                data.makeHot = module.makeHot;data.foundReactClasses = foundReactClasses;
+	            });
+	        })();
+	    }
 	}
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)(module)))
 
-	module.exports = isReactElementish;
+/***/ },
+/* 99 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {"use strict";
+
+	/* REACT HOT LOADER */if (true) {
+	    (function () {
+	        var ReactHotAPI = __webpack_require__(3),
+	            RootInstanceProvider = __webpack_require__(11),
+	            ReactMount = __webpack_require__(13),
+	            React = __webpack_require__(82);module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () {
+	            return RootInstanceProvider.getRootInstances(ReactMount);
+	        }, React);
+	    })();
+	}try {
+	    (function () {
+
+	        var React = __webpack_require__(82);
+	        var QqShow = __webpack_require__(100);
+	        var ContentData = __webpack_require__(91);
+
+	        var cnblogPage = React.createClass({ displayName: "cnblogPage",
+	            statics: {
+	                fetchData: function fetchData(callback) {
+	                    var url = 'http://localhost:3000/api/qq/list';
+	                    ContentData.fetch(url).then(function (data) {
+	                        callback(data);
+	                    });
+	                }
+	            },
+	            // 组件相关的状态对象
+	            getInitialState: function getInitialState() {
+	                return {
+	                    showList: []
+	                };
+	            },
+	            getData: function getData() {
+	                var self = this;
+	                this.constructor.fetchData(function (data) {
+	                    var waresPagedList = data.waresPagedList;
+	                    // console.log(waresPagedList);
+	                    self.setState({ showList: waresPagedList });
+	                });
+	            },
+	            componentDidMount: function componentDidMount() {
+	                this.getData();
+	            },
+	            render: function render() {
+	                var showList = this.props.showList || this.state.showList;
+	                var arr = [];
+	                showList.forEach(function (em, i) {
+	                    arr.push(React.createElement(QqShow, { key: i, itemInfo: em }));
+	                });
+	                return React.createElement("ul", null, React.createElement("li", { className: "np-title-hot" }, "热门评论"), arr);
+	            }
+	        });
+	        module.exports = cnblogPage;
+
+	        /* REACT HOT LOADER */
+	    }).call(undefined);
+	} finally {
+	    if (true) {
+	        (function () {
+	            var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false;if (module.exports && module.makeHot) {
+	                var makeExportsHot = __webpack_require__(85);if (makeExportsHot(module, __webpack_require__(82))) {
+	                    foundReactClasses = true;
+	                }var shouldAcceptModule = true && foundReactClasses;if (shouldAcceptModule) {
+	                    module.hot.accept(function (err) {
+	                        if (err) {
+	                            console.error("Cannot not apply hot update to " + "index.js" + ": " + err.message);
+	                        }
+	                    });
+	                }
+	            }module.hot.dispose(function (data) {
+	                data.makeHot = module.makeHot;data.foundReactClasses = foundReactClasses;
+	            });
+	        })();
+	    }
+	}
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)(module)))
+
+/***/ },
+/* 100 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {"use strict";
+
+	/* REACT HOT LOADER */if (true) {
+	    (function () {
+	        var ReactHotAPI = __webpack_require__(3),
+	            RootInstanceProvider = __webpack_require__(11),
+	            ReactMount = __webpack_require__(13),
+	            React = __webpack_require__(82);module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () {
+	            return RootInstanceProvider.getRootInstances(ReactMount);
+	        }, React);
+	    })();
+	}try {
+	    (function () {
+
+	        var React = __webpack_require__(82);
+
+	        var qqShow = React.createClass({ displayName: "qqShow",
+	            render: function render() {
+	                var itemInfo = this.props.itemInfo;
+	                // console.log(itemInfo);
+	                return React.createElement("li", { className: "np-post" }, React.createElement("img", { src: itemInfo.userinfo.head, alt: "头像", className: "np-avatar" }), React.createElement("div", { className: "np-post-body" }, React.createElement("div", { className: "np-post-header" }, React.createElement("span", null, React.createElement("a", { href: "javascript:void(0)", title: itemInfo.userinfo.nick, class: "np-user" }, itemInfo.userinfo.nick)), React.createElement("span", { className: "np-time" }, itemInfo.timeDifference)), React.createElement("div", { className: "np-post-content" }, React.createElement("p", null, itemInfo.content)), React.createElement("div", { className: "np-post-footer" }, React.createElement("a", { href: "javascript:void(0)", className: "np-btn np-btn-upvote" }, "(", React.createElement("em", null, itemInfo.up), ")"), React.createElement("a", { href: "javascript:void(0)", className: "np-btn np-btn-reply" }, "回复"), React.createElement("a", { href: "javascript:void(0)", className: "np-btn np-postlink" }, React.createElement("img", { src: "http://mat1.gtimg.com/www/niuping2013/postframe/transparent.gif", alt: "查看回复" }), "查看回复(", itemInfo.rep, ")"))));
+	            }
+	        });
+	        module.exports = qqShow;
+
+	        /* REACT HOT LOADER */
+	    }).call(undefined);
+	} finally {
+	    if (true) {
+	        (function () {
+	            var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false;if (module.exports && module.makeHot) {
+	                var makeExportsHot = __webpack_require__(85);if (makeExportsHot(module, __webpack_require__(82))) {
+	                    foundReactClasses = true;
+	                }var shouldAcceptModule = true && foundReactClasses;if (shouldAcceptModule) {
+	                    module.hot.accept(function (err) {
+	                        if (err) {
+	                            console.error("Cannot not apply hot update to " + "qqShow.js" + ": " + err.message);
+	                        }
+	                    });
+	                }
+	            }module.hot.dispose(function (data) {
+	                data.makeHot = module.makeHot;data.foundReactClasses = foundReactClasses;
+	            });
+	        })();
+	    }
+	}
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)(module)))
 
 /***/ }
 /******/ ]);

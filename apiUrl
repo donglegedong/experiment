@@ -1,0 +1,24 @@
+// 京东
+页面:  http://h5.m.jd.com/active/vsJurNMLwnnt9eECbAT2kb4PJe7/index.html
+api: http://h5.m.jd.com/h5api.jsp?functionid=getBabelProductPaged&body=%7B%22secondTabId%22%3A%2200000625_219343_t0%3B0_00145107_%22%2C%22type%22%3A%220%22%2C%22pageNum%22%3A%221%22%7D&screen=750*1334&client=wh5&clientVersion=1.0.0&sid=&uuid=494488825&_=1482920653519&callback=jsonp2
+备用api: http://h5.m.jd.com/h5api.jsp?functionid=h5BabelGenericChannel&body=%7B%22activityId%22%3A%22vsJurNMLwnnt9eECbAT2kb4PJe7%22%2C%22pageNum%22%3A%22-1%22%2C%22innerAnchor%22%3A%22%22%2C%22innerExtId%22%3A%22%22%2C%22hideTopFoot%22%3A%22%22%7D&screen=750*1334&client=wh5&clientVersion=1.0.0&sid=&uuid=494488825&_=1482920650572&callback=jsonp1
+// qq
+页面：http://coral.qq.com/1666497743
+api: http://coral.qq.com/article/1666497743/hotcomment?reqnum=10&callback=myHotcommentList&_=1482920914370
+备用api: http://coral.qq.com/article/1666497743/comment?commentid=0&reqnum=10&tag=&callback=mainComment&_=1482920914371
+
+http://i.match.qq.com/pac/kuaibao?channel=kb_news_qipa&limit=10&p=1&callback=recommendlist&random=0.14058794791050433
+
+http://w.l.qq.com/lview?type=text&rot=1&ri=_textAd&callback=auto_gen_1&loc=News_F_Right_text1,News_F_Right_text2,News_F_Right_text3,News_F_Right_text4,News_F_Right_text5,News_F_Right_text6,News_F_Right_text7,News_F_Right_text8,News_F_Right_text9,News_F_Right_text10,News_F_Right_text11,News_F_Right_text12
+// cnblog
+页面：http://www.cnblogs.com/
+api: http://www.cnblogs.com/aggsite/SubCategories
+备用api: http://www.cnblogs.com/aggsite/EditorPickStat
+
+http://ad-api.cnblogs.com/adunits/text/T1/creative?_=1482921228012
+
+http://www.cnblogs.com/aggsite/SideRight
+
+http://www.cnblogs.com/aggsite/UserStats
+
+http://www.cnblogs.com/aggsite/AggStats

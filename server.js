@@ -4,8 +4,9 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
 
-var LIST_FILE = path.join(__dirname, 'src/data/data3.json'),
-    CHILD_FILE = path.join(__dirname, 'src/data/message.json');
+var JD_LIST_FILE = path.join(__dirname, 'src/data/jd-h5api-getBabelProductPaged.json');
+var CNBLOG_LIST_FILE = path.join(__dirname, 'src/data/cnblogs.json');
+var QQ_LIST_FILE = path.join(__dirname, 'src/data/qq-commenthot.json');
 app.set('port', (process.env.PORT || 3000));
 
 app.use('/static', express.static(path.join(__dirname, 'build')));
@@ -25,9 +26,9 @@ app.get('/', function (req, res) {
         });
     }
 });
-app.get('/api/list', function(req, res) {
+app.get('/api/jd/list', function(req, res) {
   res.setHeader('Access-Control-Allow-Origin','*')
-  fs.readFile(LIST_FILE, function(err, data) {
+  fs.readFile(JD_LIST_FILE, function(err, data) {
     if (err) {
       console.error(err);
       process.exit(1);
@@ -35,9 +36,19 @@ app.get('/api/list', function(req, res) {
     res.json(JSON.parse(data));
   });
 });
-app.get('/api/childList', function(req, res) {
+app.get('/api/cnblog/list', function(req, res) {
   res.setHeader('Access-Control-Allow-Origin','*')
-  fs.readFile(CHILD_FILE, function(err, data) {
+  fs.readFile(CNBLOG_LIST_FILE, function(err, data) {
+    if (err) {
+      console.error(err);
+      process.exit(1);
+    }
+    res.json(JSON.parse(data));
+  });
+});
+app.get('/api/qq/list', function(req, res) {
+  res.setHeader('Access-Control-Allow-Origin','*')
+  fs.readFile(QQ_LIST_FILE, function(err, data) {
     if (err) {
       console.error(err);
       process.exit(1);

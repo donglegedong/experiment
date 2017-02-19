@@ -3,12 +3,14 @@ var webpack = require('webpack'),
     path = require('path');
 
 var scripts = path.join(__dirname, 'src'),
-    jsxsrc = path.join(scripts, 'components'),
+    jsxsrc = path.join(scripts, 'container'),
     output = path.join(scripts, 'buildpage');
 // webpack相关配置
 var webpackConfig = {
     entry: {
-        productBox: path.join(jsxsrc + '/productBox.js')
+        jdPage: path.join(jsxsrc + '/jd/index.js'),
+        cnblogPage: path.join(jsxsrc + '/cnblog/index.js'),
+        qqPage: path.join(jsxsrc + '/qq/index.js')
     },
     target: 'node',
     output: {

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charSet="UTF-8" />
+        <meta name="keywords" content="" />
+        <meta name="description" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta httpEquiv="X-UA-Compatible" content="IE=Edge" />
+        <title>客户端渲染</title>
+        <style>
+            body{
+                font-family: Microsoft YaHei,Heiti SC;
+                font-size: 12px;
+            }
+            .post-list{
+                margin-top: 0;
+                padding-left: 5px;
+                padding-right: 0;
+                padding-top: 10px;
+                min-height: 300px;
+            }
+            .post-item{
+                border-bottom: 1px dotted #ccc;
+                border-width: 1px;
+                margin-bottom: 15px;
+                padding-bottom: 15px;
+            }
+            .digg{
+                float: left;
+                width: 60px;
+            }
+            .diggit{
+                float: left;
+                width: 46px;
+                height: 52px;
+                background: url('http://common.cnblogs.com/images/upup.gif') no-repeat;
+                text-align: center;
+                cursor: pointer;
+                margin-top: 2px;
+                text-indent: 0;
+            }
+            .diggnum{
+                line-height: 2.2em;
+                font-size: 14px;
+                color: #075db3;
+                font-family: Verdana;
+            }
+            .digg:after{
+                content: '';
+                display: table-cell;
+                clear: both;
+            }
+            .post-item-body{
+                margin-left: 50px;
+                padding-top: 1px;
+                line-height: 150%;
+            }
+            .post-list h3{                
+                font-size: 14px;
+                margin: 0 0 5px 0;
+            }
+            .titlelnk{
+                color: #105cb6;
+                font-size: 14px;
+                font-weight: bold;
+                text-decoration: underline;
+            }
+            .post-item-summary{
+                line-height: 1.8em;
+                margin-bottom: 5px;
+                color: #333;
+                overflow: hidden;
+                padding-right: 5px;
+                font-size: 12px;
+                padding-top: 5px;
+            }
+            .pfs{
+                height: 48px;
+                width: 48px;
+                padding: 1px;
+                margin-top: 3px;
+                margin-right: 5px;
+                border: 1px solid #ccc;
+                float: left;
+            }
+            .post-item-foot{
+                color: #555;
+                padding-top: 5px;
+                margin-left: 10px;
+            }
+            a.lightblue:link{
+                color: #005a94;
+                text-decoration: none;
+            }
+            .article-comment{
+                background: transparent url(http://common.cnblogs.com/images/icon_comment.gif) no-repeat scroll 0 0;
+                padding-left: 18px;
+                padding-right: 5px;
+                margin-left: 1px;
+            }
+            .article-view{
+                background: transparent url(http://common.cnblogs.com/images/icon_arrow.gif) no-repeat scroll 0 0;
+                padding-left: 18px;
+                padding-right: 5px;
+                margin-left: 1px;
+            }
+            .gray{
+                color: #555;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="post-list">
+            <div class="post-item">
+                <div class="digg">
+                    <div class="diggit">
+                        <span class="diggnum">0</span>
+                    </div>
+                </div>
+                <div class="post-item-body">
+                    <h3>
+                        <a href="javascript:void(0)" class="titlelnk">linux内核调试技术之自构proc</a>
+                    </h3>
+                    <div class="post-item-summary">
+                        <a href="javascript:void(0)">
+                            <img src="http://pic.cnblogs.com/face/1066187/20161205091603.png" alt="示例图片" class="pfs">
+                        </a>
+                        <span>1、简介 在上一篇中，在内核中使用printk可以讲调试信息保存在log_buf缓冲区中，可以使用命令 #cat /proc/kmsg 将缓冲区的数区的数数据打印出来,今天我们就来研究一下，自己写kmsg这个文件，我们取名叫做 mymsg。 2、查看内核中 /proc/kmsg怎么写的！ 在Proc ...
+                        </span>
+                    </div>
+                    <div class="post-item-foot">
+                        <a href="javascript:void(0)" class="lightblue">canTryBest</a>
+                        发布于<span>2016-12-26 13:23</span>
+                        <span class="article-comment gray">评论(0)</span>
+                        <span class="article-view gray">阅读(19)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="post-item">
+                <div class="digg">
+                    <div class="diggit">
+                        <span class="diggnum">0</span>
+                    </div>
+                </div>
+                <div class="post-item-body">
+                    <h3>
+                        <a href="javascript:void(0)" class="titlelnk">linux内核调试技术之自构proc</a>
+                    </h3>
+                    <div class="post-item-summary">
+                        <a href="javascript:void(0)">
+                            <img src="http://pic.cnblogs.com/face/1066187/20161205091603.png" alt="示例图片" class="pfs">
+                        </a>
+                        <span>1、简介 在上一篇中，在内核中使用printk可以讲调试信息保存在log_buf缓冲区中，可以使用命令 #cat /proc/kmsg 将缓冲区的数区的数数据打印出来,今天我们就来研究一下，自己写kmsg这个文件，我们取名叫做 mymsg。 2、查看内核中 /proc/kmsg怎么写的！ 在Proc ...
+                        </span>
+                    </div>
+                    <div class="post-item-foot">
+                        <a href="javascript:void(0)" class="lightblue">canTryBest</a>
+                        发布于<span>2016-12-26 13:23</span>
+                        <span class="article-comment gray">评论(0)</span>
+                        <span class="article-view gray">阅读(19)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

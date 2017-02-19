@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charSet="UTF-8" />
+        <meta name="keywords" content="" />
+        <meta name="description" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta httpEquiv="X-UA-Compatible" content="IE=Edge" />
+        <title>客户端渲染</title>
+        <style>
+            body{
+                font-family: Microsoft YaHei,Heiti SC;
+            }
+            ul{
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+            .np-title-hot{
+                font-size: 15px;
+                padding: 5px 0;
+                color: #FF2968;
+                font-weight: 400;
+                border-bottom: 1px solid #e8e8e8;
+            }
+            .np-post{
+                position: relative;
+                padding-left: 40px;
+                vertical-align: top;
+                border-bottom: solid 1px #ddd;
+            }
+            .np-avatar{
+                position: absolute;
+                top: 20px;
+                left: 0;
+                width: 40px;
+                height: 40px;
+                cursor: pointer;
+                border-radius: 20px;
+                border: 0px;
+            }
+            .np-post-body{
+                padding-left: 10px;
+            }
+            .np-post-header{
+                color: #999;
+                padding-top: 18px;
+                line-height: 20px;
+            }
+            .np-post-header span{
+                margin-right: 3px;
+            }
+            a:link, a:visited, a:active{
+                text-decoration: none;
+            }
+            .np-user{
+                color: #379BE9;
+                display: inline-block;
+            }
+            .np-time{
+                margin-left: 7px;
+                color: #999;
+                display: inline-block;
+            }
+            .np-post-content{
+                margin-top: 6px;
+                font-size: 14px;
+                line-height: 24px;
+                word-break: break-all;
+            }
+            .np-post-content p{
+                word-wrap:break-word;
+                margin: 0;
+
+                padding: 0;
+            }
+            .np-post-footer{
+                color: #999;
+                margin-top: 3px;
+                padding-bottom: 15px;
+            }
+            .np-btn {
+                display: inline-block;
+            }
+            .np-btn:link{
+                color: #999;
+            }
+            .np-post-footer a{
+                margin-right: 10px;
+            }
+            .np-btn-upvote{
+                background-image: url(http://mat1.gtimg.com/www/coral2.0/images/icons1.gif);
+                background-repeat: no-repeat;
+                padding-left: 15px;
+                background-position: -448px -84px;
+            }
+            em{
+                font-size: 1em;
+                font-style: normal;
+                font-weight: 500;
+            }
+            .np-btn-reply{
+                background-image: url(http://mat1.gtimg.com/www/coral2.0/images/icons1.gif);
+                background-repeat: no-repeat;
+                padding-left: 19px;
+                background-position: -443px -124px;
+            }
+            .np-postlink {
+                padding: 0 5px;
+                font-size: 12px;
+            }
+            .np-postlink img{
+                width: 15px;
+                height: 14px;
+                background-image: url(http://mat1.gtimg.com/www/niuping2013/postframe/icons.gif);
+                background-repeat: no-repeat;
+                background-position: -5px -85px;
+                vertical-align: middle;
+            }
+        </style>
+    </head>
+    <body>
+        <ul>
+            <li class="np-title-hot">热门评论</li>
+            <li class="np-post">
+                <img src="http://q2.qlogo.cn/g?b=qq&k=IMicjg8Aue04HIiaVVqWGJIA&s=40&t=1482422400" alt="头像" class="np-avatar">
+                <div class="np-post-body">
+                    <div class="np-post-header">
+                        <span>
+                            <a href="javascript:void(0)" title="雪枫" class="np-user">雪枫</a>
+                        </span>
+                        <span class="np-time">2016-12-14</span>
+                    </div>
+                    <div class="np-post-content">
+                        <p>打针太贵了！按体重算的，一次几百就没了，好多农村里的人不愿意花这钱。如果国家免费就不会出这些事了。</p>
+                    </div>
+                    <div class="np-post-footer">
+                        <a href="javascript:void(0)" class="np-btn np-btn-upvote">
+                            (<em>1375</em>)
+                        </a>
+                        <a href="javascript:void(0)" class="np-btn np-btn-reply">回复</a>
+                        <a href="javascript:void(0)" class="np-btn np-postlink">
+                            <img src="http://mat1.gtimg.com/www/niuping2013/postframe/transparent.gif" alt="查看回复">
+                            查看回复(108)
+                        </a>
+                    </div>
+                </div>
+            </li>
+            <li class="np-post">
+                <img src="http://q2.qlogo.cn/g?b=qq&k=IMicjg8Aue04HIiaVVqWGJIA&s=40&t=1482422400" alt="头像" class="np-avatar">
+                <div class="np-post-body">
+                    <div class="np-post-header">
+                        <span>
+                            <a href="javascript:void(0)" title="雪枫" class="np-user">雪枫</a>
+                        </span>
+                        <span class="np-time">2016-12-14</span>
+                    </div>
+                    <div class="np-post-content">
+                        <p>打针太贵了！按体重算的，一次几百就没了，好多农村里的人不愿意花这钱。如果国家免费就不会出这些事了。</p>
+                    </div>
+                    <div class="np-post-footer">
+                        <a href="javascript:void(0)" class="np-btn np-btn-upvote">
+                            (<em>1375</em>)
+                        </a>
+                        <a href="javascript:void(0)" class="np-btn np-btn-reply">回复</a>
+                        <a href="javascript:void(0)" class="np-btn np-postlink">
+                            <img src="http://mat1.gtimg.com/www/niuping2013/postframe/transparent.gif" alt="查看回复">
+                            查看回复(108)
+                        </a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </body>
+</html>
